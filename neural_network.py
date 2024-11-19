@@ -44,19 +44,9 @@ class NeuralNet(pl.LightningModule):
         return accuracy
 
 
-if __name__ == "__main__":
+def train_neural_network(X_train, X_test, y_train, y_test):
     torch.set_float32_matmul_precision('medium')
     torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-    df = polars.read_csv("creditcard.csv", schema_overrides={
-                         "Time": polars.Utf8}).drop("Time")
-
-    X = df.select(polars.all().exclude("Class")).to_numpy()
-    y = df.select("Class").to_numpy().flatten()
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2
-    )
 
     train_dataset = TensorDataset(
         torch.FloatTensor(X_train), torch.FloatTensor(y_train)
@@ -65,9 +55,9 @@ if __name__ == "__main__":
         torch.FloatTensor(X_test), torch.FloatTensor(y_test))
 
     train_loader = DataLoader(
-        train_dataset, batch_size=64, shuffle=True, num_workers=16)
+        train_dataset, batch_size=64, shuffle=True, num_workers=8)
 
-    test_loader = DataLoader(test_dataset, batch_size=64, num_workers=16)
+    test_loader = DataLoader(test_dataset, batch_size=64, num_workers=8)
 
     model = NeuralNet()
 
@@ -76,3 +66,5 @@ if __name__ == "__main__":
     trainer.fit(model, train_loader)
 
     trainer.test(model, test_loader)
+
+    return 0 # todo
