@@ -9,11 +9,16 @@ import time
 
 # find the average of the run times
 def average_time(num_runs, run_times):
-    total = 0
+    parallel_total = 0
+    serial_total = 0
     for i in range(num_runs):
-        total += run_times[i]
+        if i%2 ==0:
+            parallel_total += run_times[i]
+        else:
+            serial_total += run_times[i]
 
-    average_time = total / num_runs
+    average_time[0] = parallel_total / num_runs
+    average_time[1] = serial_total / num_runs
 
     # print("\n")
     # print(f"Average time: {average_time}\n")
@@ -37,9 +42,9 @@ def time_runs(script_to_run,  num):
 
 # global variables
 script_to_run = ['python parallel.py', 'python serial.py']  # set the script to run here
-num_runs = 1 # set the number of runs here
+num_runs = 10 # set the number of runs here
 run_times = [None] * num_runs # variable to hold the run times
-average_times = [None] * len(script_to_run)
+average_times = [None] * 2
 
 """
 The purpose of this program is to run our scripts multiple times timing each.
