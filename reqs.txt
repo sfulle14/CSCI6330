@@ -7,3 +7,5 @@ scikit-learn
 more-itertools
 seaborn
 imblearn
+polars
+pytorch_lightning
