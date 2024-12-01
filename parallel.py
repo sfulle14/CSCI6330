@@ -48,7 +48,7 @@ def decision_trees(X_train, X_test, y_train, y_test):
         'metric': 'binary_error'
     }
 
-    lgb.train(params, training_data, num_boost_round=100)
+    model = lgb.train(params, training_data, num_boost_round=100)
 
     y_pred = model.predict(X_test)
     y_pred = (y_pred >= 0.5).astype(int)
