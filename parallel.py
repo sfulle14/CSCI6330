@@ -5,6 +5,7 @@ https://github.com/sergi-s/Credit-Card-fraud-detection
 
 # libraries needed for the algorithm
 import polars
+import lightgbm as lgb
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -35,16 +36,22 @@ def random_forest(X_train, X_test, y_train, y_test):
 
 """
 Decision trees
-Cannot be made more parallel since it is just one tree.
+The individual decision tree uses boosting and multiple threads.
 """
 def decision_trees(X_train, X_test, y_train, y_test):
-    decision_tree = DecisionTreeClassifier()
+    training_data = lgb.Dataset(X_train, label=y_train)
 
-    decision_tree.fit(X_train, y_train)
+    params = {
+        'objective': 'binary',
+        'num_threads': 4, # The amount of threads to be used
+        'boosting_type': 'gbdt',
+        'metric': 'binary_error'
+    }
 
-    y_pred = decision_tree.predict(X_test)
+    lgb.train(params, training_data, num_boost_round=100)
 
-    decision_tree.score(X_test,y_test)
+    y_pred = model.predict(X_test)
+    y_pred = (y_pred >= 0.5).astype(int)
 
     return accuracy_score(y_test, y_pred)
 

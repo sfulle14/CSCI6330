@@ -9,3 +9,4 @@ seaborn
 imblearn
 polars
 pytorch_lightning
+lightgbm
