@@ -8,5 +8,5 @@ This will install all dependencies
 
 ## Run Code
 Run: 
-    pytyhon serial.py and python parallel.py to see each version of the code run.
+    python serial.py and python parallel.py to see each version of the code run.
     You may need to set environment variables or use the path to python.exe
