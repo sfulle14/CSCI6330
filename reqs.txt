@@ -10,3 +10,4 @@ imblearn
 polars
 pytorch_lightning
 lightgbm
+imbalanced-learn
