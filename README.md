@@ -1,8 +1,7 @@
 # CSCI6330
 
-## Install python
-
-## Install libraries
+## Requirements and Install libraries
+Install python https://www.python.org/downloads/
 Run:
     pip install -r reqs.txt
 This will install all dependencies
@@ -10,3 +9,4 @@ This will install all dependencies
 ## Run Code
 Run: 
     pytyhon serial.py and python parallel.py to see each version of the code run.
+    You may need to set environment variables or use the path to python.exe
